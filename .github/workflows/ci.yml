@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, master]
   pull_request:
-    branches: [main]
+    branches: [main, master]
 
 jobs:
   # Stage 1 : Tests
@@ -65,7 +65,7 @@ jobs:
   # Stage 4 : Deploy (simulé)
   deploy:
     needs: [build, security]
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment: production
     steps:
